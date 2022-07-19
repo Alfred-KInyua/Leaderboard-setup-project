@@ -2,19 +2,35 @@
 
 body {
   font-family: Abel, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  background-color: #ebe0e02f;
+}
+
+h1 {
+  margin-left: 7%;
+}
+
+td {
+  width: 100%;
+}
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(88, 81, 81, 0.411);
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
   box-sizing: border-box;
   height: 100vh;
 }
 
-.display {
+.wrapper {
   margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  background-color: #ebe0e02f;
 }
 
 input[type='text'] {
@@ -27,7 +43,7 @@ input[type='text'] {
   -moz-box-shadow: 7px -4px 67px -21px rgba(0, 0, 0, 0.75);
 }
 
-input[type='button'] {
+input[type='submit'] {
   padding: 15px;
   width: 30%;
   font-weight: bold;
