@@ -1,6 +1,7 @@
-import API_URL from './url';
+import myurl from './url.js';
+
 export default async (score) => {
-  await fetch(API_URL, {
+  await fetch(myurl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

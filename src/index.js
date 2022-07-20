@@ -1,27 +1,26 @@
-import myurl from '../modules/url';
-import addScore from '../modules/add_data';
+import myurl from '../modules/url.js';
+import addScore from '../modules/add_data.js';
 import './style.css';
-import displayScores from '../modules/display';
+import displayScores from '../modules/display.js';
 
 const myform = document.querySelector('.myform');
 const refresh = document.querySelector('.refresh');
-const { name_Element, score_Element } = myform.elements;
+const nameElement = document.querySelector('#name');
+const scoreElement = document.querySelector('#score');
 
-const formAddHandler = async (e) => {
+const checKMyFormDataElements = async (e) => {
   e.preventDefault();
-  if (name_Element.value===''|| score_Element.value ==='') return 0;
-  await addScore({ user: name_Element.value, score: score_Element.value });
-  name_Element.value = '';
-  score_Element.value = '';
+  if (nameElement.value === '' || scoreElement.value === '') return;
+  await addScore({ user: nameElement.value, score: scoreElement.value });
+  nameElement.value = '';
+  scoreElement.value = '';
 };
 
-const renderFromAPI = async () => {
-  const fetchPro = await fetch(myurl);
-  const data = await fetchPro.json();
+const displayFRomAPI = async () => {
+  const geturl = await fetch(myurl);
+  const data = await geturl.json();
   displayScores(data.result);
 };
 
-myform.addEventListener('submit', formAddHandler);
-refresh.addEventListener('click',renderFromAPI);
-
-
+myform.addEventListener('submit', checKMyFormDataElements);
+refresh.addEventListener('click', displayFRomAPI);

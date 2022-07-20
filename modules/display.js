@@ -1,8 +1,9 @@
-const data_received = document.querySelector('.list');
+const dataReceived = document.querySelector('.list');
 export default (scores) => {
-  data_received.innerHTML = '';
-  scores.forEach((received_data) => {
-    const data = `<tr><td class="score">${received_data.user}:</td><td> ${received_data.score}</td></tr>`;
-    data_received.insertAdjacentHTML('beforeend', data);
+  dataReceived.innerHTML = '';
+  scores.forEach((receivedData) => {
+    const data = `<tr><td class="score">${receivedData.user}:</td>
+    <td> ${receivedData.score}</td></tr>`;
+    dataReceived.insertAdjacentHTML('beforeend', data);
   });
 };
