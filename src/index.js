@@ -1,45 +1,27 @@
+import myurl from '../modules/url';
+import addScore from '../modules/add_data';
 import './style.css';
-/* eslint max-classes-per-file: ["error", 2] */
-class Leaders {
-  constructor(Name, Score) {
-    this.Name = Name;
-    this.Score = Score;
-  }
-}
-class ListLeaders {
-  static displaLeaders=() => {
-    const scores = [
-      {
-        Name: 'Alfred',
-        Score: '100',
-      },
-      {
-        Name: 'Martinas',
-        Score: '34',
-      },
-      {
-        Name: 'Lucy',
-        Score: '55',
-      }];
-    const scoreboard = scores;
-    scoreboard.forEach((scored) => ListLeaders.addScores(scored));
-  }
+import displayScores from '../modules/display';
 
-  static addScores =(scored) => {
-    const list = document.querySelector('.list');
-    const addRow = document.createElement('tr');
-    addRow.innerHTML = `
-     <td>${scored.Name}</td>
-     <td>${scored.Score}</td>    
-    `;
-    list.appendChild(addRow);
-  }
-}
-document.addEventListener('DOMContentLoaded', () => ListLeaders.displaLeaders());
-document.querySelector('.myform').addEventListener('submit', (e) => {
+const myform = document.querySelector('.myform');
+const refresh = document.querySelector('.refresh');
+const { name_Element, score_Element } = myform.elements;
+
+const formAddHandler = async (e) => {
   e.preventDefault();
-  const Name = document.querySelector('#name').value;
-  const Score = document.querySelector('#score').value;
-  const newScore = new Leaders(Name, Score);
-  ListLeaders.addScores(newScore);
-});
+  if (name_Element.value===''|| score_Element.value ==='') return 0;
+  await addScore({ user: name_Element.value, score: score_Element.value });
+  name_Element.value = '';
+  score_Element.value = '';
+};
+
+const renderFromAPI = async () => {
+  const fetchPro = await fetch(myurl);
+  const data = await fetchPro.json();
+  displayScores(data.result);
+};
+
+myform.addEventListener('submit', formAddHandler);
+refresh.addEventListener('click',renderFromAPI);
+
+
