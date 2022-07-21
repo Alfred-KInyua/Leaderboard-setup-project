@@ -1,9 +1,11 @@
-const dataReceived = document.querySelector('.list');
+const list = document.querySelector('.list');
+
 export default (scores) => {
-  dataReceived.innerHTML = '';
-  scores.forEach((receivedData) => {
-    const data = `<tr><td class="score">${receivedData.user}:</td>
-    <td> ${receivedData.score}</td></tr>`;
-    dataReceived.insertAdjacentHTML('beforeend', data);
+  scores.sort((a, b) => b.score - a.score);
+  list.innerHTML = '';
+  let data = '';
+  scores.forEach((score) => {
+    data = `<tr><td class="score">${score.user}:</td>  <td> ${score.score}</td></tr>`;
+    list.insertAdjacentHTML('beforeend', data);
   });
 };

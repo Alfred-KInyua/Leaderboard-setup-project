@@ -1,25 +1,28 @@
-import myurl from '../modules/url.js';
-import addScore from '../modules/add_data.js';
+import addData from '../modules/addData.js';
 import './style.css';
-import displayScores from '../modules/display.js';
+import display from '../modules/display.js';
 
 const myform = document.querySelector('.myform');
 const refresh = document.querySelector('.refresh');
 const nameElement = document.querySelector('#name');
 const scoreElement = document.querySelector('#score');
+const msg = document.querySelector('.msg');
 
 const checKMyFormDataElements = async (e) => {
   e.preventDefault();
-  if (nameElement.value === '' || scoreElement.value === '') return;
-  await addScore({ user: nameElement.value, score: scoreElement.value });
-  nameElement.value = '';
-  scoreElement.value = '';
+  if (nameElement.value === '' || scoreElement.value === '') {
+    msg.innerHTML = '<p> FILL ALL MISSING FILEDS</P> ';
+  } else {
+    await addData({ user: nameElement.value, score: scoreElement.value });
+    nameElement.value = '';
+    scoreElement.value = '';
+  }
 };
 
 const displayFRomAPI = async () => {
-  const geturl = await fetch(myurl);
+  const geturl = await fetch('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/RMvG2crojZ683ILlW2ZX/scores');
   const data = await geturl.json();
-  displayScores(data.result);
+  display(data.result);
 };
 
 myform.addEventListener('submit', checKMyFormDataElements);
