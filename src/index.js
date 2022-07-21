@@ -1,45 +1,29 @@
+import addData from '../modules/addData.js';
 import './style.css';
-/* eslint max-classes-per-file: ["error", 2] */
-class Leaders {
-  constructor(Name, Score) {
-    this.Name = Name;
-    this.Score = Score;
-  }
-}
-class ListLeaders {
-  static displaLeaders=() => {
-    const scores = [
-      {
-        Name: 'Alfred',
-        Score: '100',
-      },
-      {
-        Name: 'Martinas',
-        Score: '34',
-      },
-      {
-        Name: 'Lucy',
-        Score: '55',
-      }];
-    const scoreboard = scores;
-    scoreboard.forEach((scored) => ListLeaders.addScores(scored));
-  }
+import display from '../modules/display.js';
 
-  static addScores =(scored) => {
-    const list = document.querySelector('.list');
-    const addRow = document.createElement('tr');
-    addRow.innerHTML = `
-     <td>${scored.Name}</td>
-     <td>${scored.Score}</td>    
-    `;
-    list.appendChild(addRow);
-  }
-}
-document.addEventListener('DOMContentLoaded', () => ListLeaders.displaLeaders());
-document.querySelector('.myform').addEventListener('submit', (e) => {
+const myform = document.querySelector('.myform');
+const refresh = document.querySelector('.refresh');
+const nameElement = document.querySelector('#name');
+const scoreElement = document.querySelector('#score');
+const msg = document.querySelector('.msg');
+
+const checKMyFormDataElements = async (e) => {
   e.preventDefault();
-  const Name = document.querySelector('#name').value;
-  const Score = document.querySelector('#score').value;
-  const newScore = new Leaders(Name, Score);
-  ListLeaders.addScores(newScore);
-});
+  if (nameElement.value === '' || scoreElement.value === '') {
+    msg.innerHTML = '<p> FILL ALL MISSING FILEDS</P> ';
+  } else {
+    await addData({ user: nameElement.value, score: scoreElement.value });
+    nameElement.value = '';
+    scoreElement.value = '';
+  }
+};
+
+const displayFRomAPI = async () => {
+  const geturl = await fetch('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/RMvG2crojZ683ILlW2ZX/scores');
+  const data = await geturl.json();
+  display(data.result);
+};
+
+myform.addEventListener('submit', checKMyFormDataElements);
+refresh.addEventListener('click', displayFRomAPI);
