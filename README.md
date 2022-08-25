@@ -12,7 +12,7 @@ Set up a JavaScript project for the Leaderboard list app, using webpack and ES6 
 
 ## Live Demo
 
-Click [here](https://github.com/Alfred-KInyua/Leaderboard-setup-project) to check out the online version
+Click [here](https://630759fc00a34408cef91404--luminous-kitten-cfcb1a.netlify.app/) to check out the online version
 
 # Getting started
 
